@@ -7,9 +7,11 @@ module PinPayment
     #
     # @param [String, PinPayment::Charge] charge_or_token the charge (or token of the charge) to refund
     # @return [PinPayment::Refund]
-    def self.create charge_or_token
+    def self.create refund_data
+      charge_or_token = refund_data[:charge]
       token = charge_or_token.is_a?(Charge) ? charge_or_token.token : charge_or_token
-      response = post(URI.parse(PinPayment.api_url).tap{|uri| uri.path = "/1/charges/#{token}/refunds" })
+      options = refund_data[:amount].present? ? { amount: refund_data[:amount] } : {}
+      response = post(URI.parse(PinPayment.api_url).tap{|uri| uri.path = "/1/charges/#{token}/refunds" }, options)
       new(response.delete('token'), response)
     end
 
