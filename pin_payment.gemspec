@@ -6,7 +6,7 @@ spec = Gem::Specification.new do |s|
   s.name        = 'pin_payment'
   s.version     = PinPayment::Version::STRING
   s.summary     = 'Ruby bindings for the Pin API'
-  s.description = 'Pin is the easiest way to accept payments online.  See https://pin.net.au/ for details.'
+  s.description = 'Pin is the easiest way to accept payments online.  See https://pinpayments.com/ for details.'
   s.authors     = ['Danial Pearce']
   s.email       = ['git@tigris.id.au']
   s.licenses    = ['MIT']
@@ -14,9 +14,9 @@ spec = Gem::Specification.new do |s|
 
   s.add_development_dependency('fakeweb')
   s.add_development_dependency('rake')
-  s.add_development_dependency('yard')
+  s.add_development_dependency('minitest')
 
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 2.3.0'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")
