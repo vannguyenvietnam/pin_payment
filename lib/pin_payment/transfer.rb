@@ -21,10 +21,17 @@ module PinPayment
 
     # Fetches all of your transfers using the pin API.
     #
+    # @param [Hash] request_options *optional*
+    # @option request_options [Integer] :page (pagination page)
+    # @option request_options [String] :query (Return only transfers whose token, description, amount or recipient details match the supplied query.)
+    # @option request_options [String] :start_date (Return only transfers created on or after this date (e.g. 2012/12/25).)
+    # @option request_options [String] :end_date (Return only transfers created before this date (e.g. 2013/12/25).)
+    # @option request_options [String] :sort (The field used to sort the transfers (only option: paid_at). Default value is paid_at.)
+    # @option request_options [Integer] :direction (The direction in which to sort the transfers (1 for ascending or -1 for descending). Default value is 1.)
     # @return [Array<PinPayment::Transfer>]
     # TODO: pagination
-    def self.all
-      response = get(URI.parse(PinPayment.api_url).tap{|uri| uri.path = '/1/transfers' })
+    def self.all request_options = {}
+      response = get(URI.parse(PinPayment.api_url).tap{|uri| uri.path = '/1/transfers' }, request_options)
       response.map{|x| new(x.delete('token'), x) }
     end
 
